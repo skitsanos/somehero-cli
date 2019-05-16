@@ -18,7 +18,7 @@ class Command extends VorpalCommand
             return Math.floor(Math.random() * (ma - mi)) + mi;
         };
 
-        global.strikeCounter = 0;
+        global.strikeCounter = {hero: 0, villain: 0};
 
         global.players = {
             hero: new global.hero({
