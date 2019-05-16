@@ -13,6 +13,14 @@ class Command extends VorpalCommand
     action(args, callback)
     {
         //console.log(args.options);
+
+        this.getRandomNumber = (min, max) =>
+        {
+            const mi = min = Math.ceil(min);
+            const ma = Math.floor(max);
+            return Math.floor(Math.random() * (ma - mi)) + mi;
+        };
+
         this.getAttackerStrength = () =>
         {
             return global.players[global.attacker].stats.strength;
@@ -26,13 +34,28 @@ class Command extends VorpalCommand
         this.getDamage = () =>
         {
             //if lucky, there is no damage
-            if(global.players[global.defender].stats.luck===100)
+            if (global.players[global.defender].stats.luck === 100)
             {
                 return 0;
             }
             else
             {
-                return this.getAttackerStrength() - this.getDefenderDefence();
+                const rawDamage = this.getAttackerStrength() - this.getDefenderDefence();
+                const chancesForResilience = this.getRandomNumber(0, 100);
+
+                /*
+                 Resilience: Takes only half of the usual damage when an enemy attacks; there’s a 20%
+                 chance he’ll use this skill when he defends but this skill cannot be used two turns in a row.
+                */
+                if (chancesForResilience <= 20)
+                {
+                    if (global.players[global.attacker].skills.resilience)
+                    {
+                        return Math.ceil(rawDamage / 2);
+                    }
+                }
+
+                return rawDamage;
             }
         };
 
@@ -84,6 +107,7 @@ class Command extends VorpalCommand
                 }
                 else
                 {
+                    const chancesForCriticalStrike = this.getRandomNumber(0, 100);
                     global.attacker = global.defender;
                     global.defender = global.attacker;
                 }

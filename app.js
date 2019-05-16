@@ -25,8 +25,8 @@ class GameCharacter
             luck: 0
         };
         this.skills = {
-            criticalStrike: false,
-            resilience: false
+            criticalStrike: Math.random() >= 0.5,
+            resilience: Math.random() >= 0.5
         };
 
         if (config !== undefined)
