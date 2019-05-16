@@ -7,7 +7,7 @@ class Command extends VorpalCommand
     constructor(instance)
     {
         super(instance, 'strike', 'Performs attack');
-        this.addOption('-m, --message <message>', 'Adds a message');
+        //this.addOption('-m, --message <message>', 'Adds a message');
     }
 
     action(args, callback)
@@ -78,6 +78,9 @@ class Command extends VorpalCommand
         }
         else
         {
+            const _attacker = global.attacker;
+            const _defender = global.defender;
+
             global.strikeCounter[global.attacker]++;
 
             this.log(`${chalk.magenta(global.attacker.toUpperCase())} attacks ${chalk.magenta(global.defender.toUpperCase())}`);
@@ -93,7 +96,7 @@ class Command extends VorpalCommand
             /*
             The game ends when one of the players remain without health or the number of turns reaches 20.
              */
-            if (global.players[global.defender].stats.health < 0)
+            if (global.players.hero.stats.health <= 0 || global.players.villain.stats.health <= 0)
             {
                 this.announceWinner();
                 this.cleanup();
@@ -108,8 +111,22 @@ class Command extends VorpalCommand
                 else
                 {
                     const chancesForCriticalStrike = this.getRandomNumber(0, 100);
-                    global.attacker = global.defender;
-                    global.defender = global.attacker;
+                    if (chancesForCriticalStrike <= 10)
+                    {
+                        //strike one more time
+                        this.log(`${chalk.magenta(global.attacker.toUpperCase())} can strike one more time. You know... Critical Strike skill...`);
+                    }
+                    else
+                    {
+                        global.attacker = _defender;
+                        global.defender = _attacker;
+
+                        //randomize hero skills
+                        global.players.hero.skills = {
+                            criticalStrike: Math.random() >= 0.5,
+                            resilience: Math.random() >= 0.5
+                        };
+                    }
                 }
             }
         }

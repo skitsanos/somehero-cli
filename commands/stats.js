@@ -20,7 +20,7 @@ class Command extends VorpalCommand
         {
             Object.entries(global.players).forEach(([key, value]) =>
             {
-                this.log(`${chalk.magenta(key.toUpperCase())} stats:`);
+                this.log(`\n${chalk.magenta(key.toUpperCase())} stats:\n`);
 
                 const sortedKeys = Object.keys(value.stats).sort((a, b) => b.length - a.length || a.localeCompare(b));
 
@@ -34,6 +34,7 @@ class Command extends VorpalCommand
                     bar.tick(0);
                 });
 
+                this.log('\n')
             });
         };
 
@@ -44,6 +45,8 @@ class Command extends VorpalCommand
         else
         {
             this.renderProgress();
+
+            this.log(global.players)
         }
 
         if (callback)

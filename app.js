@@ -71,6 +71,9 @@ class Villain extends GameCharacter
     {
         super(config);
 
+        this.skills.criticalStrike = false;
+        this.skills.resilience = false;
+
         this.type = 'villain';
     }
 }
