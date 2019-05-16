@@ -20,7 +20,7 @@ class Command extends VorpalCommand
         {
             Object.entries(global.players).forEach(([key, value]) =>
             {
-                this.log(`${key.toUpperCase()} stats:`);
+                this.log(`${chalk.magenta(key.toUpperCase())} stats:`);
 
                 const sortedKeys = Object.keys(value.stats).sort((a, b) => b.length - a.length || a.localeCompare(b));
 

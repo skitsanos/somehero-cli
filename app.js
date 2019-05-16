@@ -1,6 +1,7 @@
 const vorpal = require('vorpal')();
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 
 process.title = 'somehero-cli';
 const pkg = require('./package');
@@ -152,5 +153,8 @@ let cmdVersion = app.registerCommand('version', 'Shows ncli version', (args, cal
 cmdVersion.hidden();
 
 app.run();
+app.log(chalk.yellow('Once upon a time there was a great hero, with some\n' +
+    'strengths and weaknesses, as all heroes have....'));
+vorpal.execSync('help');
 
 //console.log(new Hero({stats: {luck: 100}}));
