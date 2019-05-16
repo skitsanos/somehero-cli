@@ -49,20 +49,24 @@ class Command extends VorpalCommand
         if (global.players.hero.stats.speed > global.players.villain.stats.speed)
         {
             global.attacker = 'hero';
+            global.defender = 'villain';
         }
         else if (global.players.hero.stats.speed < global.players.villain.stats.speed)
         {
             global.attacker = 'villain';
+            global.defender = 'hero';
         }
         else if (global.players.hero.stats.speed === global.players.villain.stats.speed)
         {
             if (global.players.hero.stats.luck > global.players.villain.stats.luck)
             {
                 global.attacker = 'hero';
+                global.defender = 'villain';
             }
             else
             {
                 global.attacker = 'villain';
+                global.defender = 'hero';
             }
         }
 
@@ -76,7 +80,7 @@ class Command extends VorpalCommand
             this.log('\nVillain strikes first...\n');
         }
 
-        this.log(`Type ${chalk.cyan('strike')} to attack`);
+        this.log(`Type ${chalk.cyan('strike')} to attack or ${chalk.cyan('stats')} for game stats`);
 
         //strike
 
