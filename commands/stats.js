@@ -16,6 +16,7 @@ class Command extends VorpalCommand
         {
             return label + ' '.repeat(width - label.length);
         };
+
         this.renderProgress = () =>
         {
             Object.entries(global.players).forEach(([key, value]) =>
@@ -45,8 +46,6 @@ class Command extends VorpalCommand
         else
         {
             this.renderProgress();
-
-            this.log(global.players)
         }
 
         if (callback)
