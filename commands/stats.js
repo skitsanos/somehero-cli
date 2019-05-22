@@ -1,7 +1,6 @@
 const path = require('path');
 const VorpalCommand = require(path.join(process.cwd(), 'njsf/vorpal/command'));
 const chalk = require('chalk');
-const ProgressBar = require('ascii-progress');
 
 class Command extends VorpalCommand
 {
@@ -27,15 +26,12 @@ class Command extends VorpalCommand
 
                 Object.keys(value.stats).forEach(stats_key =>
                 {
-                    const bar = new ProgressBar({
-                        schema: this.barLabel(stats_key, sortedKeys[0].length) + ' :bar :current/:total',
-                        total: 100,
-                        current: value.stats[stats_key]
-                    });
-                    bar.tick(0);
+                    const label = this.barLabel(stats_key, sortedKeys[0].length);
+
+                    this.log(`${label}: `, value.stats[stats_key]);
                 });
 
-                this.log('\n')
+                this.log('\n');
             });
         };
 
