@@ -50,5 +50,4 @@ class Command extends VorpalCommand
         }
     }
 }
-
 module.exports = Command;
